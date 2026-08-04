@@ -119,8 +119,3 @@ include "proses/proses_mutasi_raw.php";
         <!-- AKhir Area yang akan dicetak -->
     </div>
 </div>
-<script>
-function cetak(){
-    window.print();
-}
-</script>

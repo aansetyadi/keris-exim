@@ -123,8 +123,3 @@ include "proses/proses_pemasukan_fg.php";
         <!-- AKhir Area yang akan dicetak -->
     </div>
 </div>
-<script>
-function cetak(){
-    window.print();
-}
-</script>

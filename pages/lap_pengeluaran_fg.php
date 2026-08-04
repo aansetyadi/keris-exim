@@ -139,8 +139,3 @@ include "proses/proses_pengeluaran_fg.php";
         <!-- AKhir Area yang akan dicetak -->
     </div>
 </div>
-<script>
-function cetak(){
-    window.print();
-}
-</script>

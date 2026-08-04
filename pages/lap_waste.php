@@ -118,8 +118,3 @@
         <!-- AKhir Area yang akan dicetak -->
     </div>
 </div>
-<script>
-function cetak(){
-    window.print();
-}
-</script>

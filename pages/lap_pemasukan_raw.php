@@ -160,8 +160,3 @@ include "proses/proses_pemasukan_raw.php";
         <!-- AKhir Area yang akan dicetak -->
     </div>
 </div>
-<script>
-function cetak(){
-    window.print();
-}
-</script>
