@@ -1,3 +1,6 @@
+.filter-tanggal input[type="date"] {
+    width: 140px;
+}
 /* Ukuran font tabel */
 .table {
     font-size: 12px;

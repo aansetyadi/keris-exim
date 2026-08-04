@@ -11,35 +11,40 @@
         <!-- Filter -->
         <form method="post">
             <div class="row g-2 mb-3 align-items-end">
-                <div class="col-auto">
-                    <div class="d-flex align-items-center gap-2">
-                        <label class="mb-0 text-nowrap">Periode Tanggal</label>
-                        <input
-                            type="date"
-                            class="form-control form-control-sm"
-                            id="tgl_awal"
-                            name="tgl_awal"
-                            value="<?= $tgl_awal ?>">
-                        <span>s/d</span>
-                        <input
-                            type="date"
-                            class="form-control form-control-sm"
-                            id="tgl_akhir"
-                            name="tgl_akhir"
-                            value="<?= $tgl_akhir ?>">
-                        <button type="submit" class="btn btn-primary btn-sm text-nowrap">
-                            <i class="bi bi-search"></i>
-                            Tampilkan
-                        </button>
+                <!-- Filter tanggal + tombol tampilkan -->
+                <div class="col-12 col-md">
+                    <div class="row g-2 align-items-end">
+                        <div class="col-12 col-md-auto">
+                            <label class="mb-1 d-block">Periode Tanggal</label>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <input type="date"
+                                class="form-control form-control-sm filter-tanggal"
+                                name="tgl_awal"
+                                value="<?= $tgl_awal ?>">
+                        </div>
+                        <div class="col-12 col-md-auto d-flex align-items-center">
+                            <span>s/d</span>
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <input type="date"
+                                class="form-control form-control-sm filter-tanggal"
+                                name="tgl_akhir"
+                                value="<?= $tgl_akhir ?>">
+                        </div>
+                        <div class="col-12 col-md-auto">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="bi bi-search"></i>
+                                Tampilkan
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="col ms-auto text-end">
-                    <button 
-                        type="button"
-                        class="btn btn-secondary btn-sm"
-                        onclick="cetak(
+                <!-- Tombol cetak pojok kanan -->
+                <div class="col-auto">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="cetak(
                             'printArea',
-                            'Laporan Pemakaian Bahan Baku',
+                            'Laporan Penyelesaian Waste/Scrap',
                             '<?=date('d-m-Y', strtotime($tgl_awal))?>',
                             '<?=date('d-m-Y', strtotime($tgl_akhir))?>'
                         )">
