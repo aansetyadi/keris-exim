@@ -156,7 +156,7 @@ if (!isset($_SESSION["username"])) {
                 <a href="#" class="nav-link active">
                     <i class="nav-icon bi bi-file-earmark-text"></i>
                     <p>
-                        Laporan Bea Cukai
+                        Laporan
                         <i class="nav-arrow bi bi-chevron-right"></i>
                     </p>
                 </a>
