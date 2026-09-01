@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $port = "6432"; // port online 6432
-$dbname = "exim2";
+$dbname = "exim";
 $user = "postgres";
 $password = "root";
 
