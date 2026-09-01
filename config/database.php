@@ -1,8 +1,8 @@
 <?php
 
 $host = "localhost";
-$port = "6432";
-$dbname = "exim";
+$port = "6432"; // port online 6432
+$dbname = "exim2";
 $user = "postgres";
 $password = "root";
 

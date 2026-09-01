@@ -42,6 +42,10 @@ include "proses/proses_pengeluaran_fg.php";
                 </div>
                 <!-- Tombol cetak pojok kanan -->
                 <div class="col-auto">
+                    <button type="button" class="btn btn-success btn-sm" onclick="exportExcel()">
+                        <i class="bi bi-file-earmark-excel"></i>
+                        Excel
+                    </button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="cetak(
                             'printArea',
                             'Laporan Pengeluaran Hasil Produksi',
@@ -139,3 +143,137 @@ include "proses/proses_pengeluaran_fg.php";
         <!-- AKhir Area yang akan dicetak -->
     </div>
 </div>
+<script>
+function exportExcel() {
+
+    var originalTable = document.querySelector('#printArea table');
+
+    if (!originalTable) {
+        alert('Data tabel tidak ditemukan.');
+        return;
+    }
+    var table = originalTable.cloneNode(true);
+    table.querySelectorAll('thead tr.header-nomor th').forEach(function(cell) {
+
+        var text = cell.textContent.trim();
+        text = text.replace(/\(/g, '').replace(/\)/g, '');
+
+        cell.textContent = text;
+    });
+    table.querySelectorAll('th, td').forEach(function(cell) {
+
+        cell.style.border = '1px solid #999';
+        cell.style.padding = '4px';
+        cell.style.verticalAlign = 'middle';
+    });
+    var judul = `
+        <table style="border-collapse:collapse; width:100%;">
+            <tr>
+                <td colspan="13" style="
+                    font-size:18px;
+                    font-weight:bold;
+                    text-align:center;
+                    border:none;
+                ">
+                    Laporan Pengeluaran Hasil Produksi
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="13" style="
+                    font-size:14px;
+                    font-weight:bold;
+                    text-align:center;
+                    border:none;
+                ">
+                    PT.BATIK KERIS
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="13" style="
+                    font-size:12px;
+                    text-align:center;
+                    border:none;
+                ">
+                    Jl. Batik Keris No.1, Turi, Cemani, Kec. Grogol, Kab. Sukoharjo
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="13" style="
+                    height:20px;
+                    border:none;
+                ">
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    `;
+    var html = `
+    <html xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel">
+
+    <head>
+        <meta charset="UTF-8">
+
+        <style>
+
+            table {
+                border-collapse: collapse;
+            }
+
+            th, td {
+                border: 1px solid #999;
+                padding: 4px;
+                vertical-align: middle;
+            }
+
+            th {
+                font-weight: bold;
+                text-align: center;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        ${judul}
+
+        ${table.outerHTML}
+
+    </body>
+
+    </html>
+    `;
+    var blob = new Blob(
+        ['\ufeff' + html],
+        {
+            type: 'application/vnd.ms-excel'
+        }
+    );
+
+    var url = URL.createObjectURL(blob);
+
+    var a = document.createElement('a');
+
+    a.href = url;
+
+    a.download =
+        'Laporan_Pengeluaran_Hasil_Produksi_' +
+        '<?=date("dmY", strtotime($tgl_awal))?>' +
+        '_' +
+        '<?=date("dmY", strtotime($tgl_akhir))?>' +
+        '.xls';
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+}
+</script>

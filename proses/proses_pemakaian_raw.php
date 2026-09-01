@@ -7,7 +7,7 @@ include "config/database.php";
 
     $sql = "SELECT m.kode_produksi, TO_CHAR(tanggal, 'dd-MM-yyyy') AS tgl, m.kode_raw, p.nama, m.satuan, m.qty_aktual 
             FROM produksi pr JOIN material m ON pr.kode_produksi = m.kode_produksi LEFT JOIN produk p ON m.kode_raw = p.kode 
-            WHERE pr.tanggal BETWEEN :tgl_awal AND :tgl_akhir AND pr.status = 'SELESAI' ORDER BY m.kode_produksi";
+            WHERE pr.tanggal BETWEEN :tgl_awal AND :tgl_akhir AND pr.status = 'SELESAI' AND m.kode_raw ILIKE 'RK%' ORDER BY m.kode_produksi";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':tgl_awal', $tgl_awal);
     $stmt->bindParam(':tgl_akhir', $tgl_akhir);
