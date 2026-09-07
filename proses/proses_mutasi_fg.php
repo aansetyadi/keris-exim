@@ -6,12 +6,12 @@ include "config/database.php";
 
     $conn->exec("CREATE TEMP TABLE IF NOT EXISTS tampung_mutasi_fg(kode_fg character varying NOT NULL, qty_awal double precision, qty_masuk double precision,qty_keluar double precision, CONSTRAINT \"PK_mutasi_fg\" PRIMARY KEY (kode_fg));");
     $conn->exec("TRUNCATE TABLE tampung_mutasi_fg;");
-    $sql = "INSERT INTO tampung_mutasi_fg(kode_fg, qty_awal) SELECT kode, SUM(masuk) - SUM(keluar) AS saldo FROM (SELECT kode_produk AS kode, 0 AS masuk, SUM(qty) AS keluar FROM expor WHERE tgl_peb < :tgl_awal GROUP BY kode_produk UNION ALL SELECT kode_fg, SUM(qty_aktual), 0 FROM produksi WHERE tanggal < :tgl_awal AND status='SELESAI' GROUP BY kode_fg UNION ALL SELECT kode_barang, 0, SUM(qty) FROM scrap WHERE tanggal < :tgl_awal AND kode_barang LIKE 'FG%' GROUP BY kode_barang) x GROUP BY kode ORDER BY kode;";
+    $sql = "INSERT INTO tampung_mutasi_fg(kode_fg, qty_awal) SELECT kode, SUM(masuk) - SUM(keluar) AS saldo FROM (SELECT kode_produk AS kode, 0 AS masuk, SUM(qty) AS keluar FROM expor WHERE tgl_peb < :tgl_awal GROUP BY kode_produk UNION ALL SELECT kode_barang, SUM(qty), 0 FROM mutasi_fg_in WHERE tgl_mutasi < :tgl_awal AND status='TERIMA' GROUP BY kode_barang UNION ALL SELECT kode_barang, 0, SUM(qty) FROM scrap WHERE tanggal < :tgl_awal AND kode_barang LIKE 'FG%' GROUP BY kode_barang) x GROUP BY kode ORDER BY kode;";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':tgl_awal', $tgl_awal);
     $stmt->execute();
 
-    $sql = "INSERT INTO tampung_mutasi_fg(kode_fg, qty_masuk) SELECT kode_fg, SUM(pr.qty_aktual) AS qty_masuk FROM produksi pr WHERE tanggal BETWEEN :tgl_awal AND :tgl_akhir AND pr.status = 'SELESAI' GROUP BY kode_fg ON CONFLICT (kode_fg) DO UPDATE SET qty_masuk = EXCLUDED.qty_masuk;";
+    $sql = "INSERT INTO tampung_mutasi_fg(kode_fg, qty_masuk) SELECT kode_barang, SUM(qty) AS qty_masuk FROM mutasi_fg_in WHERE tgl_mutasi BETWEEN :tgl_awal AND :tgl_akhir AND status = 'TERIMA' GROUP BY kode_barang ON CONFLICT (kode_fg) DO UPDATE SET qty_masuk = EXCLUDED.qty_masuk;";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':tgl_awal', $tgl_awal);
     $stmt->bindParam(':tgl_akhir', $tgl_akhir);
