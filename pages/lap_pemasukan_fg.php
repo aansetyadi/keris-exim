@@ -109,9 +109,9 @@ include "proses/proses_pemasukan_fg.php";
                         ?>
                         <tr>
                             <td class="rata-tengah"><?= $no++ ?></td>
-                            <td class="rata-tengah"><?= htmlspecialchars($row['kode_produksi']) ?></td>
+                            <td class="rata-tengah"><?= htmlspecialchars($row['no_mutasi']) ?></td>
                             <td class="rata-tengah"><?= date('d-m-Y', strtotime($row['tgl'])) ?></td>
-                            <td class="rata-tengah"><?= htmlspecialchars($row['kode_fg']) ?></td>
+                            <td class="rata-tengah"><?= htmlspecialchars($row['kode_barang']) ?></td>
                             <td class="nama-barang"><?= htmlspecialchars($row['nama']) ?></td>
                             <td><?= htmlspecialchars($row['satuan']) ?></td>
                             <td class="rata-kanan"><?= number_format($row['qty_aktual'],2,',','.') ?></td>
