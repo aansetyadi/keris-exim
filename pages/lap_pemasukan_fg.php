@@ -114,7 +114,7 @@ include "proses/proses_pemasukan_fg.php";
                             <td class="rata-tengah"><?= htmlspecialchars($row['kode_barang']) ?></td>
                             <td class="nama-barang"><?= htmlspecialchars($row['nama']) ?></td>
                             <td><?= htmlspecialchars($row['satuan']) ?></td>
-                            <td class="rata-kanan"><?= number_format($row['qty_aktual'],2,',','.') ?></td>
+                            <td class="rata-kanan"><?= number_format($row['qty'],2,',','.') ?></td>
                             <td></td>
                             <td>PT. Batik Keris</td>
                         </tr>
